@@ -17,18 +17,36 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String phone;
+	private String cpf;
 	
 	public User() {
 		
 	}
 
-	public User(Long id, String name, String email, String phone) {
+	
+
+	public User(Long id, String name, String email, String phone, String cpf) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
+		this.cpf = cpf;
 	}
+
+
+
+	public String getCpf() {
+		return cpf;
+	}
+
+
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -70,6 +88,7 @@ public class User implements Serializable {
 		return result;
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
