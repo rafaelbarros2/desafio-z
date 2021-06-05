@@ -1,6 +1,8 @@
 package com.desafioz.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,9 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String cpf;
+	
+	private List<Cars> Cars = new ArrayList<>();
+	
 	
 	public User() {
 		
@@ -87,7 +92,9 @@ public class User implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
+	public List<Cars> getCars() {
+		return Cars;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -105,7 +112,6 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
+	
 }
