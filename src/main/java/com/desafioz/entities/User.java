@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User implements Serializable {
@@ -21,6 +22,7 @@ public class User implements Serializable {
 	private String phone;
 	private String cpf;
 	
+	@OneToMany(mappedBy = "client")
 	private List<Cars> Cars = new ArrayList<>();
 	
 	
