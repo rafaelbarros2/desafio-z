@@ -10,6 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+
+
+
 @Entity
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,6 +28,7 @@ public class User implements Serializable {
 	private String phone;
 	private String cpf;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Cars> Cars = new ArrayList<>();
 	
