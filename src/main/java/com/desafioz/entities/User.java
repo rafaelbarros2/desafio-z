@@ -24,14 +24,15 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	private Long id;
-	
+	@Column( nullable=false)
 	private String name;
 	@Column(unique=true, nullable=false)
 	private String email;
+	@Column( nullable=false)
 	private String phone;
 	@Column(unique=true, nullable=false)
 	private String cpf;
-	@Column(unique=true, nullable=false)
+	@Column( nullable=false)
 	private String birthDate;
 	
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
