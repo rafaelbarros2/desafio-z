@@ -24,14 +24,15 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	private Long id;
-	@Column(unique=true, nullable=false)
+	
 	private String name;
 	@Column(unique=true, nullable=false)
 	private String email;
 	private String phone;
 	@Column(unique=true, nullable=false)
 	private String cpf;
-	
+	@Column(unique=true, nullable=false)
+	private String birthDate;
 	
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Cars> Cars = new ArrayList<>();
@@ -42,13 +43,14 @@ public class User implements Serializable {
 	}
 
 	
-	public User(Long id, String name, String email, String phone, String cpf) {
+	public User(Long id, String name, String email, String phone, String cpf, String birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.cpf = cpf;
+		this.birthDate = birthDate;
 	}
 
 
@@ -96,6 +98,17 @@ public class User implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+		
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
 
 	@Override
 	public int hashCode() {
