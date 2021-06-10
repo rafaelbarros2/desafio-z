@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.desafioz.entities.CarroFipe;
-import com.desafioz.entities.Marca;
+import com.desafioz.entities.RetornoFipe;
 import com.desafioz.services.FipeClient;
 
 @RestController
@@ -26,13 +26,13 @@ public class FipeResource {
 	}
 	
 	@GetMapping("/marcas")
-	List<Marca> getMarcas() {
+	List<RetornoFipe> getMarcas() {
 		return fipeClient.getMarcas();
 	}
 	
 	@GetMapping("marcas/{marca}/modelos/{modelo}/anos/{ano}")
-	List<CarroFipe> getValor(@PathVariable("marca") int marca, 
-			            @PathVariable("modelo") String modelo, 
+	CarroFipe getValor(@PathVariable("marca") int marca, 
+			            @PathVariable("modelo") int modelo, 
 			            @PathVariable("ano") String ano) {
 		
 		return fipeClient.getValor(marca, modelo, ano);

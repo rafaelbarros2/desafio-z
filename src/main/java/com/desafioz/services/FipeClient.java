@@ -7,17 +7,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.desafioz.entities.CarroFipe;
-import com.desafioz.entities.Marca;
+import com.desafioz.entities.RetornoFipe;
 
-@FeignClient(url = " https://parallelum.com.br/fipe/api/v1/carros/marcas/59/modelos/5940/anos", name = "fipeClient")
+@FeignClient(url = "https://parallelum.com.br/fipe/api/v1/carros", name = "fipeClient")
 public interface FipeClient {
 	
 	@GetMapping("/marcas")
-	List<Marca> getMarcas();
+	List<RetornoFipe> getMarcas();
 	
-	@GetMapping("marcas/{marca}/modelos/{modelo}/anos/{ano}")
-	List<CarroFipe> getValor(@PathVariable("marca") int marca, 
-			            @PathVariable("modelo") String modelo, 
+	@GetMapping("/marcas/{marca}/modelos/{modelo}")
+	CarroFipe getModelosByMarca(@PathVariable("marca") int marca, 
+			@PathVariable("modelo") String modelo);
+	
+	@GetMapping("/marcas/{marca}/modelos/{modelo}/anos/{ano}")
+	CarroFipe getValor(@PathVariable("marca") int marca, 
+			            @PathVariable("modelo") int modelo, 
 			            @PathVariable("ano") String ano);
-		
 }

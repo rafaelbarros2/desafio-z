@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +22,7 @@ public class CarsResource {
 	
 	@Autowired
 	private CarsService service;
+	
 	@GetMapping
 	public ResponseEntity<List<Cars>> findAll(){
 		List<Cars> list = service.findAll();
@@ -25,8 +30,27 @@ public class CarsResource {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Cars> findeById(@PathVariable Long id){
+	public ResponseEntity<Cars> findById(@PathVariable Long id){
 		Cars obj = service.findByid(id);
 		return ResponseEntity.ok().body(obj);
 }
+	
+	@PostMapping
+	public ResponseEntity<Cars> insertCar(@RequestBody Cars obj) {
+		Cars car = service.insertCar(obj);
+		return ResponseEntity.ok().body(car);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Cars> updateCar(@PathVariable Long id, @RequestBody Cars obj) {		
+		Cars car = service.updateCar(id, obj);
+		return ResponseEntity.ok().body(car);
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 }

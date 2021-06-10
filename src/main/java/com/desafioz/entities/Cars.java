@@ -23,9 +23,15 @@ public class Cars implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String carName;
+	
+	private String marca;
+	private int codigoMarca;
 	private String modeloVeiculo;
+	private int codigoModelo;
 	private String anoVeiculo;
+	
+	private String valor; 
+	private String rodizio;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
@@ -84,13 +90,63 @@ public class Cars implements Serializable {
 	public void setModeloVeiculo(String modeloVeiculo) {
 		this.modeloVeiculo = modeloVeiculo;
 	}
-
-	public String getCarName() {
-		return carName;
+	
+	public String getMarca() {
+		return marca;
 	}
 
-	public void setCarName(String carName) {
-		this.carName = carName;
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public int getCodigoMarca() {
+		return codigoMarca;
+	}
+
+	public void setCodigoMarca(int codigoMarca) {
+		this.codigoMarca = codigoMarca;
+	}
+
+	public int getCodigoModelo() {
+		return codigoModelo;
+	}
+
+	public void setCodigoModelo(int codigoModelo) {
+		this.codigoModelo = codigoModelo;
+	}
+
+	public String getValor() {
+		return valor;
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
+
+
+	public void setRodizio(String rodizio) {
+		this.rodizio = rodizio;
+	}
+	
+	public String getRodizio() {
+		
+		if(this.getAnoVeiculo() == null)
+			return rodizio;
+			
+		int ultimoDigito = Integer.parseInt(this.getAnoVeiculo().substring(3,4));
+		if( ultimoDigito <= 1 ) {
+			this.setRodizio("Segunda-feira");
+		} else if (ultimoDigito <= 3 ) {
+			this.setRodizio("Terça-feira");
+		} else if (ultimoDigito <= 5) {
+			this.setRodizio("Quarta-feira");
+		} else if (ultimoDigito <= 7) {
+			this.setRodizio("Quinta-feira");
+		} else if (ultimoDigito <= 9) {
+			this.setRodizio("Sexta-feira");
+		}
+		
+		return rodizio;
 	}
 
 	@Override

@@ -1,36 +1,43 @@
 package com.desafioz.entities;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CarroFipe {
 
-		private BigDecimal Valor;
-		private String Marca;
-		private String Modelo;
-		private String AnoModelo;
+		@JsonProperty("Valor")
+		private String valor;
 		
-		public BigDecimal getValor() {
-			return Valor;
+		@JsonProperty("Marca")
+		private String marca;
+		
+		@JsonProperty("Modelo")
+		private String modelo;
+		
+		@JsonProperty("AnoModelo")
+		private int anoModelo;
+		
+		public String getValor() {
+			return valor;
 		}
-		public void setValor(BigDecimal valor) {
-			Valor = valor;
+		public void setValor(String valor) {
+			this.valor = valor;
 		}
 		public String getMarca() {
-			return Marca;
+			return marca;
 		}
 		public void setMarca(String marca) {
-			Marca = marca;
+			this.marca = marca;
 		}
 		public String getModelo() {
-			return Modelo;
+			return modelo;
 		}
 		public void setModelo(String modelo) {
-			Modelo = modelo;
+			this.modelo = modelo;
 		}
-		public String getAnoModelo() {
-			return AnoModelo;
+		public int getAnoModelo() {
+			return anoModelo;
 		}
-		public void setAnoModelo(String anoModelo) {
-			AnoModelo = anoModelo;
+		public void setAnoModelo(int anoModelo) {
+			this.anoModelo = anoModelo;
 		}
 }

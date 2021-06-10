@@ -1,6 +1,6 @@
 package com.desafioz.entities;
 
-public class Marca {
+public class RetornoFipe {
 	
 	private String nome;
 	private int codigo;

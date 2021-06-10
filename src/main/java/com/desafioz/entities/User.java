@@ -12,38 +12,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
-
-
 @Entity
-
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-		
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	private Long id;
-	@Column( nullable=false)
-	private String name;
-	@Column(unique=true, nullable=false)
-	private String email;
-	@Column( nullable=false)
-	private String phone;
-	@Column(unique=true, nullable=false)
-	private String cpf;
-	@Column( nullable=false)
-	private String birthDate;
 	
+	@Column(nullable = false)
+	private String name;
+	
+	@Column(unique = true, nullable = false)
+	private String email;
+	
+	@Column(nullable = false)
+	private String phone;
+	
+	@Column(unique = true, nullable = false)
+	private String cpf;
+
+	@Column(nullable = false)
+	private String birthDate;
+
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Cars> Cars = new ArrayList<>();
-	
-	
+
 	public User() {
-		
+
 	}
 
-	
 	public User(Long id, String name, String email, String phone, String cpf, String birthDate) {
 		super();
 		this.id = id;
@@ -54,19 +53,13 @@ public class User implements Serializable {
 		this.birthDate = birthDate;
 	}
 
-
-
 	public String getCpf() {
 		return cpf;
 	}
 
-
-
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -100,16 +93,13 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-		
 	public String getBirthDate() {
 		return birthDate;
 	}
 
-
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -118,10 +108,11 @@ public class User implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	public List<Cars> getCars() {
 		return Cars;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -139,5 +130,4 @@ public class User implements Serializable {
 		return true;
 	}
 
-	
 }
