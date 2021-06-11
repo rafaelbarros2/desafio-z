@@ -2,6 +2,7 @@ package com.desafioz.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -132,21 +133,24 @@ public class Cars implements Serializable {
 		
 		if(this.getAnoVeiculo() == null)
 			return rodizio;
-			
+		
+		
 		int ultimoDigito = Integer.parseInt(this.getAnoVeiculo().substring(3,4));
-		if( ultimoDigito <= 1 ) {
-			this.setRodizio("Segunda-feira");
-		} else if (ultimoDigito <= 3 ) {
-			this.setRodizio("Terça-feira");
-		} else if (ultimoDigito <= 5) {
-			this.setRodizio("Quarta-feira");
-		} else if (ultimoDigito <= 7) {
-			this.setRodizio("Quinta-feira");
-		} else if (ultimoDigito <= 9) {
-			this.setRodizio("Sexta-feira");
-		}
+		int rodizioInt = Integer.parseInt(rodizio);
+		if( ultimoDigito <= 1 && rodizioInt == Calendar.MONDAY ) {
+			
+		} {this.setRodizio("false");} if (ultimoDigito <= 3 && rodizioInt == Calendar.TUESDAY ){
+			this.setRodizio("true");
+		} else{this.setRodizio("false");} if (ultimoDigito <= 5 && rodizioInt == Calendar.WEDNESDAY) {
+			this.setRodizio("true");
+		} else{this.setRodizio("false");} if (ultimoDigito <= 7 && rodizioInt == Calendar.THURSDAY) {
+			this.setRodizio("true");
+		} else{System.out.println(false);} if (ultimoDigito <= 9 && rodizioInt == Calendar.FRIDAY) {
+			this.setRodizio("true");
+		}else{this.setRodizio("false");}
 		
 		return rodizio;
+		
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class CarsService {
 			
 			verificarMarca(car.getCodigoMarca());
 			verificarModelo();
-			validarAno();
+			validarAno(car.getAnoVeiculo());
 			
 			String valorFipe = fipeClient.getValor(car.getCodigoMarca(), car.getCodigoModelo(), car.getAnoVeiculo()).getValor();
 			
@@ -48,7 +48,12 @@ public class CarsService {
 	
 	public void verificarMarca(int codigoMarca) {
 		//TODO
+		
+		
+			// TODO: handle exception
+		
 		// buscar marca na api da fipe
+		
 		
 		// verificar se a marca existe na lista do retorno da fipe
 		
@@ -59,8 +64,16 @@ public class CarsService {
 		
 	}
 	
-	public void validarAno() {
-		
+	public void validarAno(String getAnoVeiculo) {
+		Cars car = new Cars();
+		 if("".equals(car.getAnoVeiculo()) && car.getAnoVeiculo() == null){
+			 throw new ResourceNotFoundExceptions("Carro não encontrado: ", null);
+		        
+		 }else{
+		        	throw new ResourceNotFoundExceptions("Carro encontrado: ", null);
+		        }
+		  
+		    
 	}
 
 	public Cars updateCar(Long id, Cars car) {
