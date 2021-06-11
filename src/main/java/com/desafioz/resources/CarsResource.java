@@ -36,15 +36,15 @@ public class CarsResource {
 }
 	
 	@PostMapping
-	public ResponseEntity<Cars> insertCar(@RequestBody Cars obj) {
-		Cars car = service.insertCar(obj);
-		return ResponseEntity.ok().body(car);
+	public ResponseEntity<Void> insertCar(@RequestBody Cars obj) {
+		service.insertCar(obj);
+		return ResponseEntity.status(201).build();
 	}
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Cars> updateCar(@PathVariable Long id, @RequestBody Cars obj) {		
-		Cars car = service.updateCar(id, obj);
-		return ResponseEntity.ok().body(car);
+		service.updateCar(id, obj);
+		return ResponseEntity.status(201).build();
 	}
 	
 	@DeleteMapping(value = "/{id}")

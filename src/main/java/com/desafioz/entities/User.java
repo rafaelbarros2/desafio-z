@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+
 
 @Entity
 public class User implements Serializable {
@@ -31,6 +33,7 @@ public class User implements Serializable {
 	private String phone;
 	
 	@Column(unique = true, nullable = false)
+	@NotBlank(message = "Errrrou!")
 	private String cpf;
 
 	@Column(nullable = false)

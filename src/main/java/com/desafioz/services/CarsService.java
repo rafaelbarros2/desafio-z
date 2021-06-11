@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.desafioz.entities.Cars;
 import com.desafioz.repositories.CarsRepository;
-import com.desafioz.services.exceptions.GeneralExcpetion;
+import com.desafioz.services.exceptions.ArgumentoInvalidoExcepetion;
+import com.desafioz.services.exceptions.ErroInternoExcepetion;
 import com.desafioz.services.exceptions.ResourceNotFoundExceptions;
 
 @Service
@@ -62,31 +63,31 @@ public class CarsService {
 	
 	public void validarAno(String getAnoVeiculo) {
 		 if("".equals(getAnoVeiculo) || getAnoVeiculo == null) {
-			 throw new ResourceNotFoundExceptions("Ano inválido: ", getAnoVeiculo);
+			 throw new ArgumentoInvalidoExcepetion("Ano inválido ");
 		 }
 	}
 
 	public Cars updateCar(Long id, Cars car) {
+		if (!repository.existsById(id))
+			throw new ResourceNotFoundExceptions("Carro não encontrado: ", id);
+		
 		try {
-			if (!repository.existsById(id))
-				throw new ResourceNotFoundExceptions("Carro não encontrado: ", id);
-
 			car.setId(id);
 			return repository.saveAndFlush(car);
-		} catch (Exception e) {
-			throw new GeneralExcpetion("Deu ruim!");
+		} catch (ErroInternoExcepetion e) {
+			throw new ErroInternoExcepetion("Deu ruim!");
 		}
 
 	}
 
 	public void delete(Long id) {
+		if (!repository.existsById(id))
+			throw new ResourceNotFoundExceptions("Carro não encontrado: ", id);
+		
 		try {
-			if (!repository.existsById(id))
-				throw new ResourceNotFoundExceptions("Carro não encontrado: ", id);
-
 			repository.deleteById(id);
-		} catch (GeneralExcpetion e) {
-			throw new GeneralExcpetion("Deu ruim!", e.getCause());
+		} catch (ArgumentoInvalidoExcepetion e) {
+			throw new ArgumentoInvalidoExcepetion("Deu ruim!", e.getCause());
 		}
 	}
 

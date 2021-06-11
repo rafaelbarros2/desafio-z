@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.format.TextStyle;
-import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_car")
+
 public class Cars implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -132,7 +131,7 @@ public class Cars implements Serializable {
 			return null;
 		
 		int ultimoDigito = Integer.parseInt(this.getAnoVeiculo().substring(3,4));
-		new Locale("pt", "br");
+		
 		if( ultimoDigito <= 1 ) {
 			return DayOfWeek.MONDAY;
 		} else if (ultimoDigito <= 3 ){
