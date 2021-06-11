@@ -1,8 +1,11 @@
 package com.desafioz.entities;
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.Instant;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +35,6 @@ public class Cars implements Serializable {
 	private String anoVeiculo;
 	
 	private String valor; 
-	private String rodizio;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
@@ -123,34 +125,31 @@ public class Cars implements Serializable {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
-
-
-	public void setRodizio(String rodizio) {
-		this.rodizio = rodizio;
-	}
 	
-	public String getRodizio() {
+	public DayOfWeek getDiaDoRodizio() {
 		
 		if(this.getAnoVeiculo() == null)
-			return rodizio;
-		
+			return null;
 		
 		int ultimoDigito = Integer.parseInt(this.getAnoVeiculo().substring(3,4));
-		int rodizioInt = Integer.parseInt(rodizio);
-		if( ultimoDigito <= 1 && rodizioInt == Calendar.MONDAY ) {
-			
-		} {this.setRodizio("false");} if (ultimoDigito <= 3 && rodizioInt == Calendar.TUESDAY ){
-			this.setRodizio("true");
-		} else{this.setRodizio("false");} if (ultimoDigito <= 5 && rodizioInt == Calendar.WEDNESDAY) {
-			this.setRodizio("true");
-		} else{this.setRodizio("false");} if (ultimoDigito <= 7 && rodizioInt == Calendar.THURSDAY) {
-			this.setRodizio("true");
-		} else{System.out.println(false);} if (ultimoDigito <= 9 && rodizioInt == Calendar.FRIDAY) {
-			this.setRodizio("true");
-		}else{this.setRodizio("false");}
-		
-		return rodizio;
-		
+		new Locale("pt", "br");
+		if( ultimoDigito <= 1 ) {
+			return DayOfWeek.MONDAY;
+		} else if (ultimoDigito <= 3 ){
+			return DayOfWeek.TUESDAY;
+		} else if (ultimoDigito <= 5 ) {
+			return DayOfWeek.WEDNESDAY;
+		} else if (ultimoDigito <= 7 ) {
+			return DayOfWeek.THURSDAY;
+		} else if (ultimoDigito <= 9) {
+			return DayOfWeek.FRIDAY;
+		}else{
+			return null;
+		}
+	}
+	
+	public boolean isRodizioAtivo() {
+		return LocalDate.now().getDayOfWeek().equals(getDiaDoRodizio());
 	}
 
 	@Override

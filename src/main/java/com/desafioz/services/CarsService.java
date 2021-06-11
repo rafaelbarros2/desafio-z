@@ -1,5 +1,6 @@
 package com.desafioz.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,19 +32,14 @@ public class CarsService {
 	}
 
 	public Cars insertCar(Cars car) {
-		try {
-			
-			verificarMarca(car.getCodigoMarca());
-			verificarModelo();
-			validarAno(car.getAnoVeiculo());
-			
-			String valorFipe = fipeClient.getValor(car.getCodigoMarca(), car.getCodigoModelo(), car.getAnoVeiculo()).getValor();
-			
-			car.setValor(valorFipe);
-			return repository.save(car);
-		} catch (Exception e) {
-			throw new GeneralExcpetion("Deu ruim!");
-		}
+		verificarMarca(car.getCodigoMarca());
+		verificarModelo();
+		validarAno(car.getAnoVeiculo());
+		
+		String valorFipe = fipeClient.getValor(car.getCodigoMarca(), car.getCodigoModelo(), car.getAnoVeiculo()).getValor();
+		car.setMoment(Instant.now());
+		car.setValor(valorFipe);
+		return repository.save(car);
 	}
 	
 	public void verificarMarca(int codigoMarca) {
@@ -65,15 +61,9 @@ public class CarsService {
 	}
 	
 	public void validarAno(String getAnoVeiculo) {
-		Cars car = new Cars();
-		 if("".equals(car.getAnoVeiculo()) && car.getAnoVeiculo() == null){
-			 throw new ResourceNotFoundExceptions("Carro não encontrado: ", null);
-		        
-		 }else{
-		        	throw new ResourceNotFoundExceptions("Carro encontrado: ", null);
-		        }
-		  
-		    
+		 if("".equals(getAnoVeiculo) || getAnoVeiculo == null) {
+			 throw new ResourceNotFoundExceptions("Ano inválido: ", getAnoVeiculo);
+		 }
 	}
 
 	public Cars updateCar(Long id, Cars car) {
