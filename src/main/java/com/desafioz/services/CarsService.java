@@ -34,7 +34,7 @@ public class CarsService {
 
 	public Cars insertCar(Cars car) {
 		verificarMarca(car.getCodigoMarca());
-		verificarModelo();
+		verificarModelo(car.getModeloVeiculo());
 		validarAno(car.getAnoVeiculo());
 		
 		String valorFipe = fipeClient.getValor(car.getCodigoMarca(), car.getCodigoModelo(), car.getAnoVeiculo()).getValor();
@@ -43,22 +43,19 @@ public class CarsService {
 		return repository.save(car);
 	}
 	
-	public void verificarMarca(int codigoMarca) {
+	@SuppressWarnings("unlikely-arg-type")
+	public void verificarMarca(int getCodigoMarca) {
 		//TODO
 		
-		
-			// TODO: handle exception
-		
-		// buscar marca na api da fipe
-		
-		
-		// verificar se a marca existe na lista do retorno da fipe
-		
-		// se não exisitr lançar um erro
+		 if("".equals(getCodigoMarca) || getCodigoMarca == 0) {
+			 throw new ArgumentoInvalidoExcepetion("Marca Invalida");
+		 }
 	}
 	
-	public void verificarModelo() {
-		
+	public void verificarModelo(String getModelo) {
+		 if("".equals(getModelo) || getModelo == null) {
+			 throw new ArgumentoInvalidoExcepetion("Ano inválido ");
+		 }
 	}
 	
 	public void validarAno(String getAnoVeiculo) {
