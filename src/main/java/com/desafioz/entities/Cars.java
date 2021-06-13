@@ -46,12 +46,22 @@ public class Cars implements Serializable {
 	public Cars() {
 	}
 
-	public Cars(Long id, Instant moment, User client) {
+	
+	public Cars(Long id, String marca, int codigoMarca, String modeloVeiculo, int codigoModelo, String anoVeiculo,
+			String valor, Instant moment, User client) {
 		super();
 		this.id = id;
+		this.marca = marca;
+		this.codigoMarca = codigoMarca;
+		this.modeloVeiculo = modeloVeiculo;
+		this.codigoModelo = codigoModelo;
+		this.anoVeiculo = anoVeiculo;
+		this.valor = valor;
 		this.moment = moment;
 		this.client = client;
 	}
+
+
 
 	public Long getId() {
 		return id;
