@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.desafioz.entities.Cars;
 import com.desafioz.entities.User;
 import com.desafioz.services.UserService;
 
@@ -61,6 +62,12 @@ public class UserResource {
 	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj ){
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PostMapping(value = "/{id}/adquirir-carro")
+	public ResponseEntity<Void> adquirirCarro(@PathVariable Long id, @RequestBody List<Cars> carList) {
+		service.adquirirCarro(id, carList);
+		return ResponseEntity.noContent().build();
 	}
 
 }

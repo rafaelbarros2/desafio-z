@@ -4,13 +4,18 @@ import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -39,27 +44,18 @@ public class Cars implements Serializable {
 	private Instant moment;
 	
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private User client;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "User_Cars",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "car_id")}
+    )
+	private Set<User> clients = new HashSet<User>();
 
 	public Cars() {
 	}
 
 	
-	public Cars(Long id, String marca, int codigoMarca, String modeloVeiculo, int codigoModelo, String anoVeiculo,
-			String valor, Instant moment, User client) {
-		super();
-		this.id = id;
-		this.marca = marca;
-		this.codigoMarca = codigoMarca;
-		this.modeloVeiculo = modeloVeiculo;
-		this.codigoModelo = codigoModelo;
-		this.anoVeiculo = anoVeiculo;
-		this.valor = valor;
-		this.moment = moment;
-		this.client = client;
-	}
 
 
 
@@ -77,14 +73,6 @@ public class Cars implements Serializable {
 
 	public void setMoment(Instant moment) {
 		this.moment = moment;
-	}
-
-	public User getClient() {
-		return client;
-	}
-
-	public void setClient(User client) {
-		this.client = client;
 	}
 
 	public String getAnoVeiculo() {
@@ -135,6 +123,19 @@ public class Cars implements Serializable {
 		this.valor = valor;
 	}
 	
+	public Set<User> getClients() {
+		return clients;
+	}
+
+
+	public void setClients(Set<User> clients) {
+		this.clients = clients;
+	}
+
+
+
+
+
 	public DayOfWeek getDiaDoRodizio() {
 		
 		if(this.getAnoVeiculo() == null)

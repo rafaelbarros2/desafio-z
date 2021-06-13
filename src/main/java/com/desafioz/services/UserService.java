@@ -8,7 +8,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.desafioz.entities.Cars;
 import com.desafioz.entities.User;
+import com.desafioz.repositories.CarsRepository;
 import com.desafioz.repositories.UserRepository;
 import com.desafioz.services.exceptions.DatabaseException;
 import com.desafioz.services.exceptions.ResourceNotFoundExceptions;
@@ -18,6 +20,10 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private CarsRepository carRepository;
+	
 	
 	public List<User> findAll(){
 		
@@ -59,6 +65,26 @@ public class UserService {
 	entity.setEmail(obj.getEmail());
 	entity.setPhone(obj.getPhone());
 	
+		
+	}
+
+	public void adquirirCarro(Long userId, List<Cars> carsList) {
+		//buscar o usuário
+		User user = repository.getById(userId);
+		//Se não trazer nenhum usuario, é porque não existe, logo mostre a mensagem de usuario não encontrado
+
+		//buscar carro
+		//
+		//Se não trazer nenhum carro, é porque não existe, logo mostre a mensagem de usuario não encontrado
+			
+		for (Cars car : carsList) {
+			Cars carro = carRepository.getById(car.getId());
+			user.addCar(carro);
+		}
+		// Adicionar o carro dentro de usuário
+		
+		//persiste o usuário
+		 repository.saveAndFlush(user);
 		
 	}
 	

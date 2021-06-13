@@ -1,23 +1,23 @@
 package com.desafioz.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 
 @Entity
 @Table(name = "tb_user")
-
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -42,8 +42,9 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private String birthDate;
 
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-	private List<Cars> Cars = new ArrayList<>();
+	
+	@ManyToMany(mappedBy = "clients", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Set<Cars> cars = new HashSet<>();
 
 	public User() {
 
@@ -58,7 +59,7 @@ public class User implements Serializable {
 		this.cpf = cpf;
 		this.birthDate = birthDate;
 	}
-
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -106,6 +107,15 @@ public class User implements Serializable {
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
+	
+	public Set<Cars> getCars() {
+		return cars;
+	}
+
+	public void addCar(Cars car) {
+        cars.add(car);
+        car.getClients().add(this);
+    }
 
 	@Override
 	public int hashCode() {
@@ -115,9 +125,7 @@ public class User implements Serializable {
 		return result;
 	}
 
-	public List<Cars> getCars() {
-		return Cars;
-	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
